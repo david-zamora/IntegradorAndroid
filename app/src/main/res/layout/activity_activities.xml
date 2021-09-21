@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".Activities">
 
+
+    <ImageButton
+        android:id="@+id/ib_toSugerence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ACTIVITIES"
+            android:textSize="40dp" />
+
+        <ListView
+            android:id="@+id/lv_Activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

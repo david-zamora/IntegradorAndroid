@@ -16,16 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-       /* val inputText = findViewById<EditText>(R.id.txt_number)
-        inputText.addTextChangedListener{ }
-        //revisar setOnFocusChangeListener
-
-        var number: Int = Integer.parseInt(inputText.text.toString())
-
-        */
-
         val actionButtonStart = findViewById<Button>(R.id.btn_Start)
 
         actionButtonStart.setOnClickListener {
