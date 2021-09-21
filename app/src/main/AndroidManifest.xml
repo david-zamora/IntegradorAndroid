@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotBored">
         <activity
+            android:name=".SugerenceScreen"
+            android:exported="true" />
+        <activity
+            android:name=".Activities"
+            android:exported="true" />
+        <activity
+            android:name=".TermsAndConditions"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
