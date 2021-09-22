@@ -7,6 +7,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class SugerenceScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +32,10 @@ class SugerenceScreen : AppCompatActivity() {
 
         if (intent.hasExtra("titleSugerence")){
             tv_titleSugerence.text = title
+            ActivitySearch(title.toString())
         } else {
             tv_titleSugerence.text = randomTitle
+            ActivityRandomSearch()
         }
 
         if (prize == 0.0) {
@@ -46,12 +53,67 @@ class SugerenceScreen : AppCompatActivity() {
             val intent = Intent(this, Activities::class.java)
             startActivity(intent)
         }
-        btn_tryAnother.setOnClickListener {
+        btn_tryAnother.setOnClickListener {ActivityRandomSearch()}
+
+
+    }
+
+    private fun getRetroFit() : Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://www.boredapi.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+
+
+     private fun ActivityRandomSearch() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val call = getRetroFit().create(ApiService :: class.java)
+                .getDataApi("activity/")
+
+            val called: dataApi? = call.body()
+
+            runOnUiThread{
+                if(call.isSuccessful){
+                    val priceActivity = called?.price
+                    val typeActivity = called?.type
+                    val activitySelect = called?.activity
+                    val tv_prize = findViewById<TextView>(R.id.tv_prize)
+                    val tv_participants = findViewById<TextView>(R.id.tv_participants)
+                    tv_prize.text = priceActivity.toString()
+                    tv_participants.text = activitySelect
+                }
+            }
 
         }
+    }
 
 
+    private fun ActivitySearch(query : String) {
 
+        CoroutineScope(Dispatchers.IO).launch {
 
+            val call = getRetroFit().create(ApiService :: class.java)
+                .getDataApi("activity?type=$query")
+
+            val called: dataApi? = call.body()
+
+            runOnUiThread{
+                if(call.isSuccessful){
+                    val priceActivity = called?.price
+                    val typeActivity = called?.type
+                    val activitySelect = called?.activity
+                    val tv_prize = findViewById<TextView>(R.id.tv_prize)
+                   // val tv_participants = findViewById<TextView>(R.id.tv_participants)
+                    val tv_activity = findViewById<TextView>(R.id.tv_activity)
+                    tv_activity.text = activitySelect
+                    tv_prize.text = priceActivity.toString()
+                }
+            }
+
+        }
     }
 }

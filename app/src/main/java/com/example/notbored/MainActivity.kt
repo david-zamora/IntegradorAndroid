@@ -13,11 +13,8 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import com.example.notbored.databinding.ActivityMainBinding
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,16 +26,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val actionButtonTerms = findViewById<TextView>(R.id.btn_terms)
+        val actionButtonTerms = findViewById<TextView>(R.id.tv_terms)
         val actionButtonStart = findViewById<Button>(R.id.btn_Start)
 
         val tv_terms = findViewById<TextView>(R.id.tv_terms)
 
-        var sharedPrefs = getSharedPreferences("prefs" , MODE_PRIVATE)
-
         val et_participants = findViewById<EditText>(R.id.txt_number)
 
-        val numberOfParticipants = et_participants.text.toString().toInt()
 
 
         actionButtonStart.setOnClickListener {
@@ -55,25 +49,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        private fun getRetroFit() : Retrofit{
-            return Retrofit.Builder()
-                .baseUrl("http://www.boredapi.com/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-
-        private fun ActivitySearch() {
-
-            CoroutineScope(Dispatchers.IO).launch {
-
-                val call = getRetroFit().create(ApiService :: class.java)
-                    .getDataApi("activity/")
-
-                val called: dataApi? = call.body()
 
 
-            }
-        }
 
     }
 
