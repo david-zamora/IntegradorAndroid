@@ -6,3 +6,7 @@ data class dataApi(
     @SerializedName("type") val type: String,
     @SerializedName("price") val price: Double,
     @SerializedName("activity") val activity: String)
+
+data  class  specificData(
+    val activity: String,
+    val price: Double)
