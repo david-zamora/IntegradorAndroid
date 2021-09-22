@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.notbored">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,10 +19,6 @@
             android:name=".TermsAndConditions"
             android:exported="true" />
         <activity
-            android:name=".Activities"
-            android:exported="true" />
-        <activity
-
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

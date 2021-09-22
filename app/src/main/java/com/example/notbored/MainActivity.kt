@@ -10,17 +10,26 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import com.example.notbored.databinding.ActivityMainBinding
 import com.google.android.material.textfield.TextInputEditText
-import org.w3c.dom.Text
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        val actionButtonTerms = findViewById<TextView>(R.id.btn_terms)
         val actionButtonStart = findViewById<Button>(R.id.btn_Start)
 
         val tv_terms = findViewById<TextView>(R.id.tv_terms)
@@ -36,9 +45,36 @@ class MainActivity : AppCompatActivity() {
 
             val intent : Intent = Intent(this, Activities :: class.java)
                     startActivity(intent)
-
                 }
+
+        actionButtonTerms.setOnClickListener {
+                val intent: Intent = Intent(this, TermsAndConditions :: class.java)
+                startActivity(intent)
+            }
         }
+
+
+
+        private fun getRetroFit() : Retrofit{
+            return Retrofit.Builder()
+                .baseUrl("http://www.boredapi.com/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+
+        private fun ActivitySearch() {
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val call = getRetroFit().create(ApiService :: class.java)
+                    .getDataApi("activity/")
+
+                val called: dataApi? = call.body()
+
+
+            }
+        }
+
     }
 
 
