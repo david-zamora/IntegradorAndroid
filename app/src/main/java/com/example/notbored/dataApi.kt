@@ -7,6 +7,7 @@ data class dataApi(
     @SerializedName("price") val price: Double,
     @SerializedName("activity") val activity: String)
 
+// Este se puede ignorar
 data  class  specificData(
     val activity: String,
     val price: Double)
