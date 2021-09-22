@@ -97,9 +97,9 @@ class SugerenceScreen : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
 
             val call = getRetroFit().create(ApiService :: class.java)
-                .getDataApi("activity?type=$query")
+                .getSpecificData(title.toString())
 
-            val called: dataApi? = call.body()
+            val called: dataApi? = call.enqueue()
 
             runOnUiThread{
                 if(call.isSuccessful){
