@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_numberPerson" />
 
     <TextView
-        android:id="@+id/terms"
+        android:id="@+id/tv_terms"
         android:layout_width="194dp"
         android:layout_height="19dp"
         android:layout_marginTop="40dp"

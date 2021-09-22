@@ -27,15 +27,31 @@ class Activities : AppCompatActivity() {
 
         btn_goToSugerence.setOnClickListener {
             val intent : Intent = Intent(this, SugerenceScreen::class.java)
+            intent.putExtra("RandomSugerence" , "Random")
             startActivity(intent)
 
         }
 
         lv_Activities.setOnItemClickListener(){parent, view, position , id ->
 
-            val intent : Intent = Intent(this, SugerenceScreen::class.java)
-            startActivity(intent)
+            lateinit var titulo : String
 
+            when (position){
+                0 -> titulo = "Education"
+                1 -> titulo = "Recreational"
+                2 -> titulo = "Social"
+                3 -> titulo = "Diy"
+                4 -> titulo = "Charity"
+                5 -> titulo = "Cooking"
+                6 -> titulo = "Relaxation"
+                7 -> titulo = "Music"
+                8 -> titulo = "Busywork"
+
+
+            }
+            val intent : Intent = Intent(this, SugerenceScreen::class.java)
+            intent.putExtra("titleSugerence", "$titulo")
+            startActivity(intent)
         }
 
     }
