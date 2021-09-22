@@ -6,12 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".SugerenceScreen">
 
-    <EditText
-        android:id="@+id/editTextNumber"
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="412dp"
+        android:layout_height="89dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="132dp" />
+        android:text="TextView"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="243dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
