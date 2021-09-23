@@ -7,6 +7,7 @@ data class dataApi(
     @SerializedName("price") val price: Double,
     @SerializedName("activity") val activity: String)
 
+
 data class dataApiunique(
     val activity: String,
     val price: Double)
