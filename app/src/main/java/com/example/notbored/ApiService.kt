@@ -12,9 +12,9 @@ interface ApiService {
     suspend fun getDataApi(@Url url: String): Response<dataApi>
 
     //intento hacer el get directo al api especifica
-    @GET("activity?")
+    @GET("/api/activity")
     //@query toma el dato tipo query para ser consultado
     // Suspend no avanza hasta que tenga una respuesta
-    suspend fun getSpecificData(@Query("type") title: String) : Response<dataApi>
+    suspend fun getSpecificData(@Query("type") title: String) : Response<dataApiunique>
 
 }

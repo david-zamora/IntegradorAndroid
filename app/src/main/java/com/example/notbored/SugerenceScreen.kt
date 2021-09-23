@@ -22,7 +22,6 @@ class SugerenceScreen : AppCompatActivity() {
         val randomTitle = intent.getStringExtra("RandomSugerence")
         val title = intent.getStringExtra("titleSugerence")
 
-        var prize = 0.5
 
         val tv_titleSugerence = findViewById<TextView>(R.id.tv_TitleSugerence)
         val tv_prize = findViewById<TextView>(R.id.tv_prize)
@@ -40,15 +39,6 @@ class SugerenceScreen : AppCompatActivity() {
             ActivityRandomSearch()
         }
 
-        if (prize == 0.0) {
-            tv_prize.text = "Free"
-        } else if(prize > 0.0 && prize < 0.3) {
-            tv_prize.text = "Low"
-        } else if (prize > 0.3 && prize < 0.6) {
-            tv_prize.text = "Medium"
-        } else {
-            tv_prize.text = "High"
-        }
 
 
         ibtn_toActivities.setOnClickListener {
@@ -86,6 +76,7 @@ class SugerenceScreen : AppCompatActivity() {
                     val tv_participants = findViewById<TextView>(R.id.tv_participants)
                     tv_prize.text = priceActivity.toString()
                     tv_participants.text = activitySelect
+
                 }
             }
 
@@ -98,9 +89,9 @@ class SugerenceScreen : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
 
             val call = getRetroFit().create(ApiService :: class.java)
-                .getSpecificData(title.toString())
+                .getSpecificData(query)
 
-            val called: dataApi? = call.body()
+            val called: dataApiunique? = call.body()
 
             runOnUiThread{
                 if(call.isSuccessful){
@@ -108,10 +99,20 @@ class SugerenceScreen : AppCompatActivity() {
                     val activitySelect = called?.activity
                     val tv_prize = findViewById<TextView>(R.id.tv_prize)
                     val tv_activity = findViewById<TextView>(R.id.tv_activity)
+
+                    priceActivity?.let {
+                        if (priceActivity == 0.0) {
+                            tv_prize.text = "Free"
+                        } else if(priceActivity > 0.0 && priceActivity < 0.3) {
+                            tv_prize.text = "Low"
+                        } else if (priceActivity > 0.3 && priceActivity < 0.6) {
+                            tv_prize.text = "Medium"
+                        } else {
+                            tv_prize.text = "High"
+                        }
+                    }
                     tv_activity.setText(activitySelect)
-                    tv_prize.setText(priceActivity.toString())
-                    Log.d("aqui esta el precio", called?.price.toString())
-                    Log.d("este debe ser la url",  )
+
                 }else{
                     Log.d("no lo logre", called?.price.toString())
                 }
