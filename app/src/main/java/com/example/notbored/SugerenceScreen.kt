@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -19,7 +20,7 @@ class SugerenceScreen : AppCompatActivity() {
         setContentView(R.layout.activity_sugerence_screen)
 
         val randomTitle = intent.getStringExtra("RandomSugerence")
-       val title = intent.getStringExtra("titleSugerence")
+        val title = intent.getStringExtra("titleSugerence")
 
         var prize = 0.5
 
@@ -32,7 +33,8 @@ class SugerenceScreen : AppCompatActivity() {
 
         if (intent.hasExtra("titleSugerence")){
             tv_titleSugerence.text = title
-            ActivitySearch(title.toString())
+            ActivitySearch(title.toString().lowercase())
+            Log.d("esta es mi actividad", title.toString())
         } else {
             tv_titleSugerence.text = randomTitle
             ActivityRandomSearch()
@@ -79,7 +81,6 @@ class SugerenceScreen : AppCompatActivity() {
             runOnUiThread{
                 if(call.isSuccessful){
                     val priceActivity = called?.price
-                    val typeActivity = called?.type
                     val activitySelect = called?.activity
                     val tv_prize = findViewById<TextView>(R.id.tv_prize)
                     val tv_participants = findViewById<TextView>(R.id.tv_participants)
@@ -99,18 +100,20 @@ class SugerenceScreen : AppCompatActivity() {
             val call = getRetroFit().create(ApiService :: class.java)
                 .getSpecificData(title.toString())
 
-            val called: dataApi? = call.enqueue()
+            val called: dataApi? = call.body()
 
             runOnUiThread{
                 if(call.isSuccessful){
                     val priceActivity = called?.price
-                    val typeActivity = called?.type
                     val activitySelect = called?.activity
                     val tv_prize = findViewById<TextView>(R.id.tv_prize)
-                   // val tv_participants = findViewById<TextView>(R.id.tv_participants)
                     val tv_activity = findViewById<TextView>(R.id.tv_activity)
-                    tv_activity.text = activitySelect
-                    tv_prize.text = priceActivity.toString()
+                    tv_activity.setText(activitySelect)
+                    tv_prize.setText(priceActivity.toString())
+                    Log.d("aqui esta el precio", called?.price.toString())
+                    Log.d("este debe ser la url",  )
+                }else{
+                    Log.d("no lo logre", called?.price.toString())
                 }
             }
 
