@@ -22,6 +22,7 @@ class Activities : AppCompatActivity() {
 
         val lv_Activities = findViewById<ListView>(R.id.lv_Activities)
 
+
         arrayAdapter = ArrayAdapter(this , android.R.layout.simple_list_item_1, activities)
         lv_Activities.adapter = arrayAdapter
 
